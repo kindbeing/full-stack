@@ -5,6 +5,15 @@ import './App.css'
 
 function App() {
     const [count, setCount] = useState(0)
+    const [data, setData] = useState("")
+
+    function fetchData() {
+        console.log("Fetching data")
+        fetch("http://localhost:3000/users")
+            .then((res) => res.json())
+            .then((data) => setData(data.message))
+            .catch((err) => console.error(err))
+    }
 
     return (
         <>
@@ -20,6 +29,9 @@ function App() {
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>
                     count is {count}
+                </button>
+                <button onClick={fetchData}>
+                    Data is as follows: {data ? data : "No data"}
                 </button>
             </div>
             <p className="read-the-docs">
